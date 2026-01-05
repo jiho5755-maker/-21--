@@ -137,10 +137,68 @@
       font-size: 18px;
       font-weight: 700;
       color: #2C2C2C;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       gap: 8px;
+    }
+    
+    /* 검색창 */
+    .search-box {
+      margin-bottom: 20px;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #E0E0E0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #7B8E7E;
+      box-shadow: 0 0 0 3px rgba(123, 142, 126, 0.1);
+    }
+    
+    .search-input::placeholder {
+      color: #999;
+    }
+    
+    /* 빠른 액션 버튼 */
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .quick-btn {
+      flex: 1;
+      padding: 10px;
+      background: white;
+      border: 2px solid #E0E0E0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    
+    .quick-btn:hover {
+      border-color: #7B8E7E;
+      background: #F5F5F5;
+    }
+    
+    .quick-btn.active {
+      background: #7B8E7E;
+      color: white;
+      border-color: #7B8E7E;
     }
     
     .filter-section {
@@ -208,10 +266,358 @@
       font-weight: 700;
     }
     
+    /* 업체 목록 */
+    .partner-list {
+      margin-top: 24px;
+      border-top: 2px solid #F0F0F0;
+      padding-top: 16px;
+    }
+    
+    .partner-list-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .sort-dropdown {
+      font-size: 12px;
+      padding: 4px 8px;
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+    }
+    
+    .partner-items {
+      max-height: 400px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .partner-items::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .partner-items::-webkit-scrollbar-track {
+      background: #F5F5F5;
+      border-radius: 3px;
+    }
+    
+    .partner-items::-webkit-scrollbar-thumb {
+      background: #C0C0C0;
+      border-radius: 3px;
+    }
+    
+    .partner-items::-webkit-scrollbar-thumb:hover {
+      background: #A0A0A0;
+    }
+    
+    .partner-item {
+      padding: 12px;
+      border: 2px solid #E0E0E0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: white;
+    }
+    
+    .partner-item:hover {
+      border-color: #7B8E7E;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .partner-item.active {
+      border-color: #7B8E7E;
+      background: #F5F9F6;
+    }
+    
+    .partner-item.favorited {
+      border-color: #FFB900;
+      background: #FFFAF0;
+    }
+    
+    .partner-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 6px;
+    }
+    
+    .partner-item-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2C2C2C;
+      flex: 1;
+    }
+    
+    .partner-item-favorite {
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .partner-item-favorite:hover {
+      transform: scale(1.2);
+    }
+    
+    .partner-item-favorite.active {
+      color: #FFB900;
+    }
+    
+    .partner-item-info {
+      font-size: 12px;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    
+    .partner-item-distance {
+      color: #7B8E7E;
+      font-weight: 600;
+    }
+    
+    .partner-item-category {
+      display: inline-block;
+      padding: 2px 6px;
+      background: #E8F5E9;
+      color: #5A6B5D;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    
     /* 지도 영역 */
     .map-wrapper {
       flex: 1;
       min-width: 0;
+      position: relative;
+    }
+    
+    /* 검색 바 */
+    .search-bar {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      right: 70px;
+      z-index: 100;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      border: 2px solid #E0E0E0;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.2s;
+    }
+    
+    .search-input:focus {
+      outline: none;
+      border-color: #7B8E7E;
+      box-shadow: 0 4px 12px rgba(123,142,126,0.2);
+    }
+    
+    .search-btn {
+      padding: 12px 16px;
+      background: white;
+      border: 2px solid #E0E0E0;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      white-space: nowrap;
+    }
+    
+    .search-btn:hover {
+      border-color: #7B8E7E;
+      background: #F5F5F5;
+    }
+    
+    .search-btn.active {
+      background: #7B8E7E;
+      color: white;
+      border-color: #7B8E7E;
+    }
+    
+    /* 지도 컨트롤 */
+    .map-controls {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .map-control-btn {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border: 2px solid #E0E0E0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-size: 18px;
+    }
+    
+    .map-control-btn:hover {
+      border-color: #7B8E7E;
+      background: #F5F5F5;
+    }
+    
+    .map-control-btn.active {
+      background: #7B8E7E;
+      color: white;
+      border-color: #7B8E7E;
+    }
+    
+    /* 상세 모달 */
+    .detail-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    
+    .detail-modal.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .detail-modal-content {
+      background: white;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .detail-modal-header {
+      position: sticky;
+      top: 0;
+      background: white;
+      padding: 24px;
+      border-bottom: 2px solid #F0F0F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      border-radius: 16px 16px 0 0;
+      z-index: 10;
+    }
+    
+    .detail-modal-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2C2C2C;
+      flex: 1;
+    }
+    
+    .detail-modal-close {
+      width: 32px;
+      height: 32px;
+      background: #F5F5F5;
+      border: none;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 20px;
+      transition: all 0.2s;
+    }
+    
+    .detail-modal-close:hover {
+      background: #E0E0E0;
+    }
+    
+    .detail-modal-body {
+      padding: 24px;
+    }
+    
+    .detail-modal-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .detail-modal-section {
+      margin-bottom: 24px;
+    }
+    
+    .detail-modal-section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2C2C2C;
+      margin-bottom: 12px;
+    }
+    
+    .detail-modal-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+    
+    .detail-modal-btn {
+      padding: 14px;
+      border: 2px solid #7B8E7E;
+      background: white;
+      color: #7B8E7E;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .detail-modal-btn:hover {
+      background: #7B8E7E;
+      color: white;
+    }
+    
+    .detail-modal-btn.primary {
+      background: #7B8E7E;
+      color: white;
+    }
+    
+    .detail-modal-btn.primary:hover {
+      background: #5A6B5D;
     }
     
     /* 지도 컨테이너 */
@@ -408,6 +814,68 @@
       margin-top: 12px;
     }
     
+    /* 링크 드롭다운 */
+    .info-links-dropdown {
+      position: relative;
+      flex: 1;
+      min-width: calc(50% - 4px);
+    }
+    
+    .info-links-toggle {
+      width: 100%;
+      padding: 10px 12px;
+      background-color: #7B8E7E;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    
+    .info-links-toggle:hover {
+      background-color: #5A6B5D;
+    }
+    
+    .info-links-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-top: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      overflow: hidden;
+    }
+    
+    .info-links-menu.show {
+      display: block;
+    }
+    
+    .info-links-menu a {
+      display: block;
+      padding: 12px 16px;
+      color: #333;
+      text-decoration: none;
+      font-size: 13px;
+      border-bottom: 1px solid #eee;
+      transition: background 0.2s;
+    }
+    
+    .info-links-menu a:last-child {
+      border-bottom: none;
+    }
+    
+    .info-links-menu a:hover {
+      background-color: #f5f5f5;
+    }
+    
     .info-btn {
       flex: 1;
       min-width: calc(50% - 4px);
@@ -445,6 +913,69 @@
       color: #333;
     }
     
+    /* 링크 드롭다운 */
+    .info-links-dropdown {
+      position: relative;
+    }
+    
+    .info-links-toggle {
+      width: 100%;
+      padding: 10px 12px;
+      background-color: #7B8E7E;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    
+    .info-links-toggle:hover {
+      background-color: #5A6B5D;
+    }
+    
+    .info-links-menu {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      right: 0;
+      background: white;
+      border: 2px solid #7B8E7E;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 100;
+    }
+    
+    .info-links-menu.show {
+      display: block;
+    }
+    
+    .info-links-menu a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      color: #2C2C2C;
+      text-decoration: none;
+      border-bottom: 1px solid #F0F0F0;
+      transition: background 0.2s;
+    }
+    
+    .info-links-menu a:last-child {
+      border-bottom: none;
+    }
+    
+    .info-links-menu a:hover {
+      background: #F5F5F5;
+    }
+    
     /* 반응형 디자인 */
     @media (max-width: 1024px) {
       .main-container {
@@ -457,6 +988,19 @@
       }
       
       .map-wrapper {
+        width: 100%;
+      }
+      
+      .search-bar {
+        flex-direction: column;
+        right: 16px;
+      }
+      
+      .search-input {
+        width: 100%;
+      }
+      
+      .search-btn {
         width: 100%;
       }
     }
@@ -497,8 +1041,10 @@
         flex-direction: column;
       }
       
-      .info-btn {
+      .info-btn,
+      .info-links-dropdown {
         width: 100%;
+        min-width: 100%;
       }
     }
     
@@ -510,6 +1056,171 @@
       
       .info-image-container {
         height: 120px;
+      }
+    }
+    
+    /* ========================================
+       상세 모달 스타일
+       ======================================== */
+    
+    #detail-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    #detail-modal.show {
+      display: flex;
+    }
+    
+    .detail-modal-content {
+      background: white;
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      animation: modalSlideIn 0.3s ease-out;
+    }
+    
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .detail-modal-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .detail-modal-header h2 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .detail-modal-close {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .detail-modal-close:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(90deg);
+    }
+    
+    .detail-modal-body {
+      padding: 20px;
+      max-height: calc(90vh - 160px);
+      overflow-y: auto;
+    }
+    
+    .detail-modal-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .detail-modal-section {
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .detail-modal-section:last-of-type {
+      border-bottom: none;
+    }
+    
+    .detail-modal-section-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 12px;
+    }
+    
+    .detail-modal-section p {
+      margin: 8px 0;
+      color: #555;
+      line-height: 1.6;
+    }
+    
+    .detail-modal-actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .detail-modal-btn {
+      padding: 14px 16px;
+      background-color: #7B8E7E;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .detail-modal-btn:hover {
+      background-color: #5A6B5D;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .detail-modal-btn.primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .detail-modal-btn.primary:hover {
+      background: linear-gradient(135deg, #5568d3 0%, #63408d 100%);
+    }
+    
+    @media (max-width: 768px) {
+      .detail-modal-content {
+        width: 95%;
+        max-height: 95vh;
+      }
+      
+      .detail-modal-actions {
+        grid-template-columns: 1fr;
+      }
+      
+      .detail-modal-image {
+        height: 180px;
       }
     }
   </style>
@@ -530,6 +1241,25 @@
     <!-- 사이드바 -->
     <div class="sidebar">
       <h2 class="sidebar-title">🔍 파트너 공방 찾기</h2>
+      
+      <!-- 검색창 -->
+      <div class="search-box">
+        <input type="text" 
+               id="search-input" 
+               class="search-input" 
+               placeholder="🔍 업체명을 검색하세요..." 
+               autocomplete="off">
+      </div>
+      
+      <!-- 빠른 액션 -->
+      <div class="quick-actions">
+        <button class="quick-btn" id="btn-my-location" title="내 위치 기준으로 정렬">
+          📍 근처
+        </button>
+        <button class="quick-btn" id="btn-favorites" title="즐겨찾기 목록 보기">
+          ⭐ 찜 <span id="favorites-count">(0)</span>
+        </button>
+      </div>
       
       <div class="partner-count">
         <div>전체 <strong id="total-count">0</strong>개</div>
@@ -558,16 +1288,57 @@
           <button class="filter-btn active" data-value="all">전체</button>
         </div>
       </div>
+      
+      <!-- 업체 목록 -->
+      <div class="partner-list">
+        <div class="partner-list-title">
+          <span>📋 업체 목록</span>
+          <select class="sort-dropdown" id="sort-select">
+            <option value="name">이름순</option>
+            <option value="distance">거리순</option>
+          </select>
+        </div>
+        <div class="partner-items" id="partner-items">
+          <!-- 동적으로 생성 -->
+        </div>
+      </div>
     </div>
     
     <!-- 지도 영역 -->
     <div class="map-wrapper">
+      <!-- 검색 바 -->
+      <div class="search-bar">
+        <input type="text" id="search-input" class="search-input" placeholder="업체명 검색...">
+        <button class="search-btn" id="btn-my-location">📍 근처</button>
+        <button class="search-btn" id="btn-favorites">⭐ 찜</button>
+      </div>
+      
+      <!-- 지도 컨트롤 -->
+      <div class="map-controls">
+        <button class="map-control-btn" id="btn-map-style" title="지도 스타일 변경">
+          🗺️
+        </button>
+      </div>
+      
       <div class="map-container">
         <div id="map"></div>
         <div class="map-loading" id="map-loading">
           <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
           <div>지도를 불러오는 중...</div>
         </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 상세 모달 -->
+  <div class="detail-modal" id="detail-modal">
+    <div class="detail-modal-content">
+      <div class="detail-modal-header">
+        <h2 class="detail-modal-title" id="modal-title"></h2>
+        <button class="detail-modal-close" id="modal-close">×</button>
+      </div>
+      <div class="detail-modal-body" id="modal-body">
+        <!-- 동적으로 생성 -->
       </div>
     </div>
   </div>
@@ -601,6 +1372,21 @@
       association: 'all'
     };
     
+    // 현재 위치
+    var userLocation = null;
+    
+    // 즐겨찾기 (로컬 저장소)
+    var favorites = [];
+    
+    // 검색어
+    var searchQuery = '';
+    
+    // 정렬 방식
+    var sortBy = 'name'; // 'name' or 'distance'
+    
+    // 지도 스타일
+    var mapStyle = 'normal'; // 'normal' or 'satellite'
+    
     // ========================================
     // InfoWindow 닫기 함수 (전역)
     // ========================================
@@ -610,6 +1396,113 @@
         currentInfoWindow = null;
       }
     };
+    
+    // ========================================
+    // 유틸리티 함수들
+    // ========================================
+    
+    // 로컬 저장소: 즐겨찾기 로드
+    function loadFavorites() {
+      try {
+        var stored = localStorage.getItem('partner_favorites');
+        favorites = stored ? JSON.parse(stored) : [];
+        updateFavoritesCount();
+      } catch (e) {
+        favorites = [];
+      }
+    }
+    
+    // 로컬 저장소: 즐겨찾기 저장
+    function saveFavorites() {
+      try {
+        localStorage.setItem('partner_favorites', JSON.stringify(favorites));
+        updateFavoritesCount();
+      } catch (e) {
+        console.error('즐겨찾기 저장 실패:', e);
+      }
+    }
+    
+    // 즐겨찾기 추가/제거
+    function toggleFavorite(partnerName) {
+      var index = favorites.indexOf(partnerName);
+      if (index > -1) {
+        favorites.splice(index, 1);
+      } else {
+        favorites.push(partnerName);
+      }
+      saveFavorites();
+      renderPartnerList();
+    }
+    
+    // 즐겨찾기 확인
+    function isFavorite(partnerName) {
+      return favorites.indexOf(partnerName) > -1;
+    }
+    
+    // 즐겨찾기 개수 업데이트
+    function updateFavoritesCount() {
+      var countEl = document.getElementById('favorites-count');
+      if (countEl) {
+        countEl.textContent = '(' + favorites.length + ')';
+      }
+    }
+    
+    // 거리 계산 (Haversine formula)
+    function calculateDistance(lat1, lng1, lat2, lng2) {
+      var R = 6371; // 지구 반지름 (km)
+      var dLat = (lat2 - lat1) * Math.PI / 180;
+      var dLng = (lng2 - lng1) * Math.PI / 180;
+      var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+              Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+              Math.sin(dLng/2) * Math.sin(dLng/2);
+      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+    
+    // 거리 포맷팅
+    function formatDistance(km) {
+      if (km < 1) {
+        return Math.round(km * 1000) + 'm';
+      } else {
+        return km.toFixed(1) + 'km';
+      }
+    }
+    
+    // 데이터 분리 (쉼표, 파이프, 줄바꿈)
+    function splitData(text) {
+      if (!text || text.trim() === '') return [];
+      return text.split(/[,|\n]+/).map(function(item) {
+        return item.trim();
+      }).filter(function(item) {
+        return item !== '';
+      });
+    }
+    
+    // URL 파라미터 읽기
+    function getUrlParams() {
+      var params = {};
+      var search = window.location.search.substring(1);
+      if (search) {
+        var pairs = search.split('&');
+        pairs.forEach(function(pair) {
+          var parts = pair.split('=');
+          params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+        });
+      }
+      return params;
+    }
+    
+    // URL 파라미터 설정
+    function setUrlParams(params) {
+      var searchParams = new URLSearchParams();
+      Object.keys(params).forEach(function(key) {
+        if (params[key] && params[key] !== 'all' && params[key] !== '') {
+          searchParams.set(key, params[key]);
+        }
+      });
+      var newUrl = window.location.pathname + (searchParams.toString() ? '?' + searchParams.toString() : '');
+      window.history.replaceState({}, '', newUrl);
+    }
     
     // ========================================
     // 유틸리티: 로깅
@@ -835,14 +1728,20 @@
         var region = extractRegion(partner.address);
         regions.add(region);
         
-        // 카테고리
+        // 카테고리 (쉼표로 분리)
         if (partner.category) {
-          categories.add(partner.category);
+          var cats = splitData(partner.category);
+          cats.forEach(function(cat) {
+            if (cat) categories.add(cat);
+          });
         }
         
-        // 협회
+        // 협회 (쉼표로 분리)
         if (partner.association) {
-          associations.add(partner.association);
+          var assocs = splitData(partner.association);
+          assocs.forEach(function(assoc) {
+            if (assoc) associations.add(assoc);
+          });
         }
       });
       
@@ -913,6 +1812,12 @@
     // 필터링 적용
     function applyFilters() {
       filteredPartnersData = partnersData.filter(function(partner) {
+        // 검색 필터
+        if (searchQuery) {
+          var nameMatch = partner.name && partner.name.toLowerCase().indexOf(searchQuery.toLowerCase()) > -1;
+          if (!nameMatch) return false;
+        }
+        
         // 지역 필터
         if (currentFilters.region !== 'all') {
           var region = extractRegion(partner.address);
@@ -921,16 +1826,18 @@
           }
         }
         
-        // 카테고리 필터
+        // 카테고리 필터 (분리된 데이터 처리)
         if (currentFilters.category !== 'all') {
-          if (partner.category !== currentFilters.category) {
+          var cats = splitData(partner.category);
+          if (cats.indexOf(currentFilters.category) === -1) {
             return false;
           }
         }
         
-        // 협회 필터
+        // 협회 필터 (분리된 데이터 처리)
         if (currentFilters.association !== 'all') {
-          if (partner.association !== currentFilters.association) {
+          var assocs = splitData(partner.association);
+          if (assocs.indexOf(currentFilters.association) === -1) {
             return false;
           }
         }
@@ -938,10 +1845,34 @@
         return true;
       });
       
+      // 즐겨찾기 필터 (활성화된 경우)
+      var favBtn = document.getElementById('btn-favorites');
+      if (favBtn && favBtn.classList.contains('active')) {
+        filteredPartnersData = filteredPartnersData.filter(function(partner) {
+          return isFavorite(partner.name);
+        });
+      }
+      
+      // 정렬
+      sortPartners();
+      
       // 마커 재생성
       createMarkers();
       
+      // 업체 목록 렌더링
+      renderPartnerList();
+      
       // 업체 수 업데이트
+      updatePartnerCount();
+      
+      // URL 상태 저장
+      setUrlParams({
+        region: currentFilters.region,
+        category: currentFilters.category,
+        association: currentFilters.association,
+        search: searchQuery
+      });
+      
       updatePartnerCount();
     }
     
@@ -951,6 +1882,90 @@
       if (countElement) {
         countElement.textContent = filteredPartnersData.length;
       }
+    }
+    
+    // 업체 정렬
+    function sortPartners() {
+      if (sortBy === 'distance' && userLocation) {
+        filteredPartnersData.sort(function(a, b) {
+          var distA = calculateDistance(userLocation.lat, userLocation.lng, a.lat, a.lng);
+          var distB = calculateDistance(userLocation.lat, userLocation.lng, b.lat, b.lng);
+          return distA - distB;
+        });
+      } else {
+        // 이름순
+        filteredPartnersData.sort(function(a, b) {
+          return (a.name || '').localeCompare(b.name || '');
+        });
+      }
+    }
+    
+    // 업체 목록 렌더링
+    function renderPartnerList() {
+      var container = document.getElementById('partner-items');
+      if (!container) return;
+      
+      container.innerHTML = '';
+      
+      filteredPartnersData.forEach(function(partner) {
+        var item = document.createElement('div');
+        item.className = 'partner-item';
+        if (isFavorite(partner.name)) {
+          item.classList.add('favorited');
+        }
+        
+        var distance = '';
+        if (userLocation) {
+          var dist = calculateDistance(userLocation.lat, userLocation.lng, partner.lat, partner.lng);
+          distance = '<span class="partner-item-distance">📍 ' + formatDistance(dist) + '</span>';
+        }
+        
+        var categories = splitData(partner.category).slice(0, 2).join(', ');
+        if (splitData(partner.category).length > 2) {
+          categories += '...';
+        }
+        
+        item.innerHTML = 
+          '<div class="partner-item-header">' +
+          '<div class="partner-item-name">' + escapeHtml(partner.name) + '</div>' +
+          '<div class="partner-item-favorite ' + (isFavorite(partner.name) ? 'active' : '') + '" ' +
+          'data-name="' + escapeHtml(partner.name) + '">★</div>' +
+          '</div>' +
+          '<div class="partner-item-info">' +
+          distance +
+          '<span class="partner-item-category">' + escapeHtml(categories || '공방') + '</span>' +
+          '</div>';
+        
+        item.onclick = function(e) {
+          if (!e.target.classList.contains('partner-item-favorite')) {
+            focusOnPartner(partner);
+          }
+        };
+        
+        var favBtn = item.querySelector('.partner-item-favorite');
+        favBtn.onclick = function(e) {
+          e.stopPropagation();
+          toggleFavorite(partner.name);
+        };
+        
+        container.appendChild(item);
+      });
+    }
+    
+    // 업체에 포커스
+    function focusOnPartner(partner) {
+      if (!map) return;
+      
+      var position = new naver.maps.LatLng(partner.lat, partner.lng);
+      map.setCenter(position);
+      map.setZoom(16);
+      
+      // 해당 마커의 InfoWindow 열기
+      markers.forEach(function(item) {
+        if (item.partner.name === partner.name) {
+          naver.maps.Event.trigger(item.marker, 'click');
+        }
+      });
     }
     
     // ========================================
@@ -1087,41 +2102,62 @@
                     '</div>';
       }
       
-      // 전화번호 버튼 (전화번호만 표시)
+      // 전화번호 버튼
       var phoneButtonHTML = '';
       if (partner.phone && partner.phone.trim() !== '') {
         var phoneDisplay = partner.phone.trim();
-        var phoneLink = phoneDisplay.replace(/[^0-9]/g, ''); // 숫자만 추출
+        var phoneLink = phoneDisplay.replace(/[^0-9]/g, '');
         phoneButtonHTML = '<a href="tel:' + escapeHtml(phoneLink) + '" class="info-btn secondary">📞 ' + escapeHtml(phoneDisplay) + '</a>';
       }
       
-      // 링크 버튼 (여러 링크 처리: 구분자로 , | 또는 줄바꿈)
+      // 링크 버튼 (드롭다운 방식)
       var linkButtonsHTML = '';
       if (partner.link && partner.link.trim() !== '') {
-        var links = partner.link.split(/[,|\n]+/).map(function(l) { return l.trim(); }).filter(function(l) { return l !== ''; });
+        var links = splitData(partner.link);
         
-        links.forEach(function(link, index) {
+        if (links.length === 1) {
+          // 링크가 하나면 바로 버튼
           var linkText = '🔗 방문';
-          var linkClass = 'info-btn';
+          if (links[0].includes('instagram')) linkText = '📷 인스타그램';
+          else if (links[0].includes('facebook')) linkText = '📘 페이스북';
+          else if (links[0].includes('blog')) linkText = '📝 블로그';
+          else if (links[0].includes('youtube')) linkText = '▶️ 유튜브';
           
-          // 링크 종류에 따라 텍스트 변경
-          if (link.includes('instagram.com') || link.includes('insta')) {
-            linkText = '📷 인스타그램';
-          } else if (link.includes('facebook.com')) {
-            linkText = '📘 페이스북';
-          } else if (link.includes('blog.naver.com') || link.includes('blog')) {
-            linkText = '📝 블로그';
-          } else if (link.includes('youtube.com')) {
-            linkText = '▶️ 유튜브';
-          } else if (links.length > 1 && index === 0) {
-            linkText = '🏠 홈페이지';
-          } else if (links.length > 1) {
-            linkText = '🔗 링크 ' + (index + 1);
-          }
+          linkButtonsHTML = '<a href="' + escapeHtml(links[0]) + '" target="_blank" class="info-btn">' + linkText + '</a>';
+        } else if (links.length > 1) {
+          // 여러 링크는 드롭다운
+          linkButtonsHTML = '<div class="info-links-dropdown">' +
+            '<button class="info-links-toggle" onclick="toggleLinksMenu(event)">🔗 링크 보기 (' + links.length + ') ▼</button>' +
+            '<div class="info-links-menu">';
           
-          linkButtonsHTML += '<a href="' + escapeHtml(link) + '" target="_blank" class="' + linkClass + '">' + linkText + '</a>';
-        });
+          links.forEach(function(link) {
+            var icon = '🔗';
+            var text = '웹사이트';
+            if (link.includes('instagram')) { icon = '📷'; text = '인스타그램'; }
+            else if (link.includes('facebook')) { icon = '📘'; text = '페이스북'; }
+            else if (link.includes('blog')) { icon = '📝'; text = '블로그'; }
+            else if (link.includes('youtube')) { icon = '▶️'; text = '유튜브'; }
+            
+            linkButtonsHTML += '<a href="' + escapeHtml(link) + '" target="_blank">' + icon + ' ' + text + '</a>';
+          });
+          
+          linkButtonsHTML += '</div></div>';
+        }
       }
+      
+      // 길찾기 버튼
+      var navigationHTML = '';
+      if (partner.lat && partner.lng) {
+        var naverMapUrl = 'https://map.naver.com/v5/directions/-/-/-/car?c=' + partner.lng + ',' + partner.lat + ',15,0,0,0,dh';
+        var kakaoMapUrl = 'https://map.kakao.com/link/to/' + encodeURIComponent(partner.name) + ',' + partner.lat + ',' + partner.lng;
+        
+        navigationHTML = '<button class="info-btn" onclick="showNavigationOptions(\'' + 
+          escapeHtml(naverMapUrl) + '\', \'' + escapeHtml(kakaoMapUrl) + '\', event)">🚗 길찾기</button>';
+      }
+      
+      // 상세보기 버튼
+      var detailButtonHTML = '<button class="info-btn secondary" onclick="showDetailModal(\'' + 
+        escapeHtml(JSON.stringify(partner).replace(/'/g, "\\'")) + '\', event)">📄 상세보기</button>';
       
       var html = '<div class="custom-infowindow">' +
                   '<button class="info-close-btn" onclick="closeInfoWindow()" title="닫기">×</button>' +
@@ -1146,13 +2182,111 @@
               '</div>' +
               '<div class="info-actions">' +
               phoneButtonHTML +
+              navigationHTML +
               linkButtonsHTML +
+              detailButtonHTML +
               '</div>' +
               '</div>' +
               '</div>';
       
       return html;
     }
+    
+    // 링크 메뉴 토글
+    window.toggleLinksMenu = function(event) {
+      event.stopPropagation();
+      var menu = event.target.nextElementSibling;
+      if (menu) {
+        menu.classList.toggle('show');
+      }
+    };
+    
+    // 길찾기 옵션 표시
+    window.showNavigationOptions = function(naverUrl, kakaoUrl, event) {
+      event.stopPropagation();
+      if (confirm('어느 지도 앱으로 길찾기를 하시겠습니까?\n\n[확인] = 네이버 지도\n[취소] = 카카오맵')) {
+        window.open(naverUrl, '_blank');
+      } else {
+        window.open(kakaoUrl, '_blank');
+      }
+    };
+    
+    // 상세 모달 표시
+    window.showDetailModal = function(partnerJson, event) {
+      if (event) event.stopPropagation();
+      
+      try {
+        var partner = JSON.parse(partnerJson);
+        var modal = document.getElementById('detail-modal');
+        var title = document.getElementById('modal-title');
+        var body = document.getElementById('modal-body');
+        
+        if (!modal || !title || !body) return;
+        
+        title.textContent = partner.name;
+        
+        var imageUrl = convertGoogleDriveUrl(partner.imageUrl);
+        var imageHTML = imageUrl ? 
+          '<img src="' + escapeHtml(imageUrl) + '" class="detail-modal-image" alt="' + escapeHtml(partner.name) + '">' : '';
+        
+        var fullAddress = partner.address;
+        if (partner.detailAddress) fullAddress += ' ' + partner.detailAddress;
+        
+        var categories = splitData(partner.category).join(', ') || '공방';
+        var associations = splitData(partner.association).join(', ') || '-';
+        
+        body.innerHTML = imageHTML +
+          '<div class="detail-modal-section">' +
+          '<div class="detail-modal-section-title">📋 기본 정보</div>' +
+          '<p><strong>카테고리:</strong> ' + escapeHtml(categories) + '</p>' +
+          '<p><strong>협회:</strong> ' + escapeHtml(associations) + '</p>' +
+          '</div>' +
+          '<div class="detail-modal-section">' +
+          '<div class="detail-modal-section-title">📝 소개</div>' +
+          '<p>' + escapeHtml(partner.description || '소개가 없습니다.') + '</p>' +
+          '</div>' +
+          '<div class="detail-modal-section">' +
+          '<div class="detail-modal-section-title">📍 위치 및 연락처</div>' +
+          '<p><strong>주소:</strong> ' + escapeHtml(fullAddress) + '</p>' +
+          '<p><strong>전화:</strong> ' + escapeHtml(partner.phone || '-') + '</p>' +
+          '<p><strong>운영시간:</strong> ' + escapeHtml(partner.hours || '-') + '</p>' +
+          '</div>' +
+          '<div class="detail-modal-actions">' +
+          '<a href="tel:' + escapeHtml(partner.phone) + '" class="detail-modal-btn primary">📞 전화하기</a>' +
+          '<button class="detail-modal-btn" onclick="showNavigationOptions(\'' +
+          'https://map.naver.com/v5/directions/-/-/-/car?c=' + partner.lng + ',' + partner.lat + ',15,0,0,0,dh' + '\', \'' +
+          'https://map.kakao.com/link/to/' + encodeURIComponent(partner.name) + ',' + partner.lat + ',' + partner.lng + '\', event)">🚗 길찾기</button>' +
+          '<button class="detail-modal-btn" onclick="toggleFavoriteFromModal(\'' + escapeHtml(partner.name) + '\')">' +
+          (isFavorite(partner.name) ? '⭐ 찜 해제' : '⭐ 찜하기') + '</button>' +
+          '<button class="detail-modal-btn" onclick="sharePartner(\'' + escapeHtml(partner.name) + '\')">🔗 공유</button>' +
+          '</div>';
+        
+        modal.classList.add('show');
+      } catch (e) {
+        console.error('모달 표시 오류:', e);
+      }
+    };
+    
+    // 모달에서 즐겨찾기 토글
+    window.toggleFavoriteFromModal = function(name) {
+      toggleFavorite(name);
+      showDetailModal(JSON.stringify(partnersData.find(function(p) { return p.name === name; })));
+    };
+    
+    // 업체 공유
+    window.sharePartner = function(name) {
+      var url = window.location.origin + window.location.pathname + '?search=' + encodeURIComponent(name);
+      if (navigator.share) {
+        navigator.share({
+          title: name + ' - 제휴업체',
+          url: url
+        });
+      } else {
+        navigator.clipboard.writeText(url).then(function() {
+          alert('링크가 복사되었습니다!\n' + url);
+        });
+      }
+    };
     
     // ========================================
     // HTML 이스케이프
@@ -1219,6 +2353,144 @@
       
       // 지도 API 로드 확인 시작
       checkNaverMap();
+      
+      // ========================================
+      // 이벤트 리스너 등록
+      // ========================================
+      
+      // 검색 입력
+      var searchInput = document.getElementById('search-input');
+      if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+          searchQuery = e.target.value;
+          applyFilters();
+        });
+      }
+      
+      // 근처 버튼
+      var btnMyLocation = document.getElementById('btn-my-location');
+      if (btnMyLocation) {
+        btnMyLocation.addEventListener('click', function() {
+          if (this.classList.contains('active')) {
+            // 비활성화
+            this.classList.remove('active');
+            userLocation = null;
+            sortBy = 'name';
+            applyFilters();
+          } else {
+            // 현재 위치 가져오기
+            if (navigator.geolocation) {
+              this.textContent = '📍 위치 확인중...';
+              this.disabled = true;
+              
+              navigator.geolocation.getCurrentPosition(
+                function(position) {
+                  userLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                  };
+                  sortBy = 'distance';
+                  btnMyLocation.textContent = '📍 근처';
+                  btnMyLocation.disabled = false;
+                  btnMyLocation.classList.add('active');
+                  
+                  // 정렬 드롭다운도 변경
+                  var sortSelect = document.getElementById('sort-select');
+                  if (sortSelect) sortSelect.value = 'distance';
+                  
+                  applyFilters();
+                },
+                function(error) {
+                  btnMyLocation.textContent = '📍 근처';
+                  btnMyLocation.disabled = false;
+                  alert('위치 정보를 가져올 수 없습니다.\n설정에서 위치 권한을 허용해주세요.');
+                }
+              );
+            } else {
+              alert('이 브라우저는 위치 기능을 지원하지 않습니다.');
+            }
+          }
+        });
+      }
+      
+      // 찜 버튼
+      var btnFavorites = document.getElementById('btn-favorites');
+      if (btnFavorites) {
+        btnFavorites.addEventListener('click', function() {
+          this.classList.toggle('active');
+          applyFilters();
+        });
+      }
+      
+      // 정렬 드롭다운
+      var sortSelect = document.getElementById('sort-select');
+      if (sortSelect) {
+        sortSelect.addEventListener('change', function(e) {
+          sortBy = e.target.value;
+          applyFilters();
+        });
+      }
+      
+      // 지도 스타일 버튼
+      var btnMapStyle = document.getElementById('btn-map-style');
+      if (btnMapStyle) {
+        btnMapStyle.addEventListener('click', function() {
+          if (map) {
+            if (mapStyle === 'normal') {
+              map.setMapTypeId(naver.maps.MapTypeId.HYBRID);
+              mapStyle = 'satellite';
+              this.textContent = '🛰️';
+              this.classList.add('active');
+            } else {
+              map.setMapTypeId(naver.maps.MapTypeId.NORMAL);
+              mapStyle = 'normal';
+              this.textContent = '🗺️';
+              this.classList.remove('active');
+            }
+          }
+        });
+      }
+      
+      // 모달 닫기
+      var modalClose = document.getElementById('modal-close');
+      if (modalClose) {
+        modalClose.addEventListener('click', function() {
+          document.getElementById('detail-modal').classList.remove('show');
+        });
+      }
+      
+      // 모달 배경 클릭 시 닫기
+      var detailModal = document.getElementById('detail-modal');
+      if (detailModal) {
+        detailModal.addEventListener('click', function(e) {
+          if (e.target === this) {
+            this.classList.remove('show');
+          }
+        });
+      }
+      
+      // ========================================
+      // 초기 설정
+      // ========================================
+      
+      // 즐겨찾기 로드
+      loadFavorites();
+      
+      // URL 파라미터 복원
+      var urlParams = getUrlParams();
+      if (urlParams.region && urlParams.region !== 'all') {
+        currentFilters.region = urlParams.region;
+      }
+      if (urlParams.category && urlParams.category !== 'all') {
+        currentFilters.category = urlParams.category;
+      }
+      if (urlParams.association && urlParams.association !== 'all') {
+        currentFilters.association = urlParams.association;
+      }
+      if (urlParams.search) {
+        searchQuery = urlParams.search;
+        if (searchInput) searchInput.value = searchQuery;
+      }
     }
     
     if (document.readyState === 'loading') {
@@ -1227,6 +2499,19 @@
       initializeApp();
     }
   </script>
+  
+  <!-- 상세 모달 -->
+  <div id="detail-modal">
+    <div class="detail-modal-content">
+      <div class="detail-modal-header">
+        <h2 id="modal-title">업체명</h2>
+        <button class="detail-modal-close" id="modal-close">×</button>
+      </div>
+      <div class="detail-modal-body" id="modal-body">
+        <!-- 동적으로 생성 -->
+      </div>
+    </div>
+  </div>
   
 </body>
 </html>
