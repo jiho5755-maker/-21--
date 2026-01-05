@@ -112,14 +112,115 @@
       text-align: left; 
     }
     
+    /* 메인 컨테이너 */
+    .main-container {
+      display: flex;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 20px;
+      gap: 20px;
+    }
+    
+    /* 사이드바 */
+    .sidebar {
+      width: 320px;
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      height: fit-content;
+      position: sticky;
+      top: 20px;
+    }
+    
+    .sidebar-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #2C2C2C;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .filter-section {
+      margin-bottom: 24px;
+    }
+    
+    .filter-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    .filter-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    
+    .filter-btn {
+      padding: 8px 16px;
+      border: 2px solid #E0E0E0;
+      background: white;
+      color: #666;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .filter-btn:hover {
+      border-color: #7B8E7E;
+      color: #7B8E7E;
+      background: #F5F5F5;
+    }
+    
+    .filter-btn.active {
+      background: #7B8E7E;
+      color: white;
+      border-color: #7B8E7E;
+    }
+    
+    .partner-count {
+      padding: 12px;
+      background: linear-gradient(135deg, #F5F5F5 0%, #E8E8E8 100%);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 16px;
+    }
+    
+    .partner-count strong {
+      font-size: 20px;
+      color: #7B8E7E;
+      font-weight: 700;
+    }
+    
+    /* 지도 영역 */
+    .map-wrapper {
+      flex: 1;
+      min-width: 0;
+    }
+    
     /* 지도 컨테이너 */
     .map-container { 
       position: relative; 
       width: 100%; 
       height: 600px; 
       background-color: #E5E3DC; 
-      margin: 20px auto;
-      max-width: 1280px;
+      margin: 0;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 4px 16px rgba(0,0,0,0.15);
@@ -345,6 +446,21 @@
     }
     
     /* 반응형 디자인 */
+    @media (max-width: 1024px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        position: static;
+      }
+      
+      .map-wrapper {
+        width: 100%;
+      }
+    }
+    
     @media (max-width: 768px) {
       .page-title { 
         font-size: 24px; 
@@ -410,11 +526,49 @@
     <p>잠시만 기다려주세요.</p>
   </div>
   
-  <div class="map-container">
-    <div id="map"></div>
-    <div class="map-loading" id="map-loading">
-      <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
-      <div>지도를 불러오는 중...</div>
+  <div class="main-container">
+    <!-- 사이드바 -->
+    <div class="sidebar">
+      <h2 class="sidebar-title">🔍 파트너 공방 찾기</h2>
+      
+      <div class="partner-count">
+        <div>전체 <strong id="total-count">0</strong>개</div>
+      </div>
+      
+      <!-- 지역 필터 -->
+      <div class="filter-section">
+        <div class="filter-label">📍 지역</div>
+        <div class="filter-buttons" id="region-filters">
+          <button class="filter-btn active" data-value="all">전체</button>
+        </div>
+      </div>
+      
+      <!-- 카테고리 필터 -->
+      <div class="filter-section">
+        <div class="filter-label">🏷️ 공예 종류</div>
+        <div class="filter-buttons" id="category-filters">
+          <button class="filter-btn active" data-value="all">전체</button>
+        </div>
+      </div>
+      
+      <!-- 협회 필터 -->
+      <div class="filter-section">
+        <div class="filter-label">🏛️ 협회</div>
+        <div class="filter-buttons" id="association-filters">
+          <button class="filter-btn active" data-value="all">전체</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 지도 영역 -->
+    <div class="map-wrapper">
+      <div class="map-container">
+        <div id="map"></div>
+        <div class="map-loading" id="map-loading">
+          <div style="font-size: 48px; margin-bottom: 16px;">🗺️</div>
+          <div>지도를 불러오는 중...</div>
+        </div>
+      </div>
     </div>
   </div>
   
@@ -434,10 +588,18 @@
     // 전역 변수
     // ========================================
     var partnersData = [];
+    var filteredPartnersData = []; // 필터링된 데이터
     var map = null;
     var markers = [];
     var infowindows = [];
     var currentInfoWindow = null; // 현재 열린 InfoWindow 추적
+    
+    // 필터 상태
+    var currentFilters = {
+      region: 'all',
+      category: 'all',
+      association: 'all'
+    };
     
     // ========================================
     // InfoWindow 닫기 함수 (전역)
@@ -567,6 +729,10 @@
           }
           
           partnersData = data.partners;
+          filteredPartnersData = partnersData; // 초기에는 전체 데이터
+          
+          // 필터 초기화
+          initializeFilters();
           
           // 상태 숨김
           hideStatus();
@@ -636,6 +802,158 @@
     }
     
     // ========================================
+    // 필터 관련 함수
+    // ========================================
+    
+    // 지역 추출 함수
+    function extractRegion(address) {
+      if (!address) return '기타';
+      
+      // 시/도 추출
+      var match = address.match(/^([^시도군구]+[시도])/);
+      if (match) {
+        return match[1];
+      }
+      
+      // 특별시/광역시 추출
+      match = address.match(/^(서울|부산|대구|인천|광주|대전|울산|세종)/);
+      if (match) {
+        return match[1];
+      }
+      
+      return '기타';
+    }
+    
+    // 필터 초기화
+    function initializeFilters() {
+      var regions = new Set();
+      var categories = new Set();
+      var associations = new Set();
+      
+      partnersData.forEach(function(partner) {
+        // 지역 추출
+        var region = extractRegion(partner.address);
+        regions.add(region);
+        
+        // 카테고리
+        if (partner.category) {
+          categories.add(partner.category);
+        }
+        
+        // 협회
+        if (partner.association) {
+          associations.add(partner.association);
+        }
+      });
+      
+      // 지역 필터 버튼 생성
+      var regionFilters = document.getElementById('region-filters');
+      regionFilters.innerHTML = '<button class="filter-btn active" data-value="all">전체</button>';
+      Array.from(regions).sort().forEach(function(region) {
+        var btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.setAttribute('data-value', region);
+        btn.textContent = region;
+        btn.onclick = function() { setFilter('region', region); };
+        regionFilters.appendChild(btn);
+      });
+      
+      // 카테고리 필터 버튼 생성
+      var categoryFilters = document.getElementById('category-filters');
+      categoryFilters.innerHTML = '<button class="filter-btn active" data-value="all">전체</button>';
+      Array.from(categories).sort().forEach(function(category) {
+        var btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.setAttribute('data-value', category);
+        btn.textContent = category;
+        btn.onclick = function() { setFilter('category', category); };
+        categoryFilters.appendChild(btn);
+      });
+      
+      // 협회 필터 버튼 생성
+      var associationFilters = document.getElementById('association-filters');
+      associationFilters.innerHTML = '<button class="filter-btn active" data-value="all">전체</button>';
+      Array.from(associations).sort().forEach(function(association) {
+        var btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.setAttribute('data-value', association);
+        btn.textContent = association;
+        btn.onclick = function() { setFilter('association', association); };
+        associationFilters.appendChild(btn);
+      });
+      
+      // "전체" 버튼 이벤트
+      regionFilters.querySelector('[data-value="all"]').onclick = function() { setFilter('region', 'all'); };
+      categoryFilters.querySelector('[data-value="all"]').onclick = function() { setFilter('category', 'all'); };
+      associationFilters.querySelector('[data-value="all"]').onclick = function() { setFilter('association', 'all'); };
+      
+      // 업체 수 업데이트
+      updatePartnerCount();
+    }
+    
+    // 필터 설정
+    function setFilter(filterType, value) {
+      currentFilters[filterType] = value;
+      
+      // 버튼 활성화 상태 변경
+      var containerId = filterType + '-filters';
+      var buttons = document.getElementById(containerId).querySelectorAll('.filter-btn');
+      buttons.forEach(function(btn) {
+        if (btn.getAttribute('data-value') === value) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      
+      // 필터링 적용
+      applyFilters();
+    }
+    
+    // 필터링 적용
+    function applyFilters() {
+      filteredPartnersData = partnersData.filter(function(partner) {
+        // 지역 필터
+        if (currentFilters.region !== 'all') {
+          var region = extractRegion(partner.address);
+          if (region !== currentFilters.region) {
+            return false;
+          }
+        }
+        
+        // 카테고리 필터
+        if (currentFilters.category !== 'all') {
+          if (partner.category !== currentFilters.category) {
+            return false;
+          }
+        }
+        
+        // 협회 필터
+        if (currentFilters.association !== 'all') {
+          if (partner.association !== currentFilters.association) {
+            return false;
+          }
+        }
+        
+        return true;
+      });
+      
+      // 마커 재생성
+      createMarkers();
+      
+      // 업체 수 업데이트
+      updatePartnerCount();
+    }
+    
+    // 업체 수 업데이트
+    function updatePartnerCount() {
+      var countElement = document.getElementById('total-count');
+      if (countElement) {
+        countElement.textContent = filteredPartnersData.length;
+      }
+    }
+    
+    // ========================================
     // 마커 생성
     // ========================================
     function createMarkers() {
@@ -668,7 +986,7 @@
       
       var bounds = new naver.maps.LatLngBounds();
       
-      partnersData.forEach(function(partner, index) {
+      filteredPartnersData.forEach(function(partner, index) {
         // 위도/경도 검증
         if (!partner.lat || !partner.lng || partner.lat === 0 || partner.lng === 0) {
           console.warn('⚠️ 좌표 없음 또는 잘못됨:', partner.name, '(lat:', partner.lat, ', lng:', partner.lng, ')');
