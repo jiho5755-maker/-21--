@@ -159,6 +159,33 @@
       max-width: 320px;
       overflow: hidden;
       font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
+      position: relative;
+    }
+    
+    /* 닫기 버튼 */
+    .info-close-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 28px;
+      height: 28px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      line-height: 1;
+      z-index: 10;
+      transition: all 0.2s;
+    }
+    
+    .info-close-btn:hover {
+      background: rgba(0, 0, 0, 0.7);
+      transform: scale(1.1);
     }
     
     .info-image-container {
@@ -211,6 +238,9 @@
       margin: 0;
       line-height: 1.4;
       flex: 1;
+      max-width: 180px;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
     
     .info-badge {
@@ -234,6 +264,8 @@
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
     
     .info-details {
@@ -263,17 +295,22 @@
     
     .info-detail-text {
       flex: 1;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      line-height: 1.5;
     }
     
     .info-actions {
       display: flex;
+      flex-wrap: wrap;
       gap: 8px;
       margin-top: 12px;
     }
     
     .info-btn {
       flex: 1;
-      padding: 10px 16px;
+      min-width: calc(50% - 4px);
+      padding: 10px 12px;
       background-color: #7B8E7E;
       color: white;
       border: none;
@@ -285,6 +322,9 @@
       text-align: center;
       text-decoration: none;
       display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     .info-btn:hover {
@@ -397,6 +437,17 @@
     var map = null;
     var markers = [];
     var infowindows = [];
+    var currentInfoWindow = null; // 현재 열린 InfoWindow 추적
+    
+    // ========================================
+    // InfoWindow 닫기 함수 (전역)
+    // ========================================
+    window.closeInfoWindow = function() {
+      if (currentInfoWindow) {
+        currentInfoWindow.close();
+        currentInfoWindow = null;
+      }
+    };
     
     // ========================================
     // 유틸리티: 로깅
@@ -659,6 +710,7 @@
           
           // 현재 InfoWindow 열기
           infowindow.open(map, marker);
+          currentInfoWindow = infowindow; // 현재 InfoWindow 추적
           map.panTo(position);
         });
         
@@ -691,7 +743,10 @@
       var imageHTML = '';
       if (imageUrl) {
         imageHTML = '<div class="info-image-container">' +
-                    '<img src="' + escapeHtml(imageUrl) + '" alt="' + escapeHtml(partner.name) + '" class="info-image">' +
+                    '<img src="' + escapeHtml(imageUrl) + '" ' +
+                    'alt="' + escapeHtml(partner.name) + '" ' +
+                    'class="info-image" ' +
+                    'onerror="this.parentElement.innerHTML=\'<div class=\\\'info-image-placeholder\\\'>🏢</div>\'">' +
                     '</div>';
       } else {
         imageHTML = '<div class="info-image-container">' +
@@ -714,19 +769,44 @@
                     '</div>';
       }
       
-      // 전화번호 버튼
+      // 전화번호 버튼 (전화번호만 표시)
       var phoneButtonHTML = '';
       if (partner.phone && partner.phone.trim() !== '') {
-        phoneButtonHTML = '<a href="tel:' + escapeHtml(partner.phone.replace(/\s/g, '')) + '" class="info-btn secondary">📞 전화</a>';
+        var phoneDisplay = partner.phone.trim();
+        var phoneLink = phoneDisplay.replace(/[^0-9]/g, ''); // 숫자만 추출
+        phoneButtonHTML = '<a href="tel:' + escapeHtml(phoneLink) + '" class="info-btn secondary">📞 ' + escapeHtml(phoneDisplay) + '</a>';
       }
       
-      // 링크 버튼
-      var linkButtonHTML = '';
+      // 링크 버튼 (여러 링크 처리: 구분자로 , | 또는 줄바꿈)
+      var linkButtonsHTML = '';
       if (partner.link && partner.link.trim() !== '') {
-        linkButtonHTML = '<a href="' + escapeHtml(partner.link) + '" target="_blank" class="info-btn">🔗 방문</a>';
+        var links = partner.link.split(/[,|\n]+/).map(function(l) { return l.trim(); }).filter(function(l) { return l !== ''; });
+        
+        links.forEach(function(link, index) {
+          var linkText = '🔗 방문';
+          var linkClass = 'info-btn';
+          
+          // 링크 종류에 따라 텍스트 변경
+          if (link.includes('instagram.com') || link.includes('insta')) {
+            linkText = '📷 인스타그램';
+          } else if (link.includes('facebook.com')) {
+            linkText = '📘 페이스북';
+          } else if (link.includes('blog.naver.com') || link.includes('blog')) {
+            linkText = '📝 블로그';
+          } else if (link.includes('youtube.com')) {
+            linkText = '▶️ 유튜브';
+          } else if (links.length > 1 && index === 0) {
+            linkText = '🏠 홈페이지';
+          } else if (links.length > 1) {
+            linkText = '🔗 링크 ' + (index + 1);
+          }
+          
+          linkButtonsHTML += '<a href="' + escapeHtml(link) + '" target="_blank" class="' + linkClass + '">' + linkText + '</a>';
+        });
       }
       
       var html = '<div class="custom-infowindow">' +
+                  '<button class="info-close-btn" onclick="closeInfoWindow()" title="닫기">×</button>' +
                   imageHTML +
                   '<div class="info-content">' +
                   '<div class="info-header">' +
@@ -748,7 +828,7 @@
               '</div>' +
               '<div class="info-actions">' +
               phoneButtonHTML +
-              linkButtonHTML +
+              linkButtonsHTML +
               '</div>' +
               '</div>' +
               '</div>';
@@ -781,8 +861,8 @@
     // 초기화
     // ========================================
     function initializeApp() {
-      debugLog('DOM 로드 완료');
-      
+        debugLog('DOM 로드 완료');
+        
       // 네이버 지도 API 로드 대기 (최대 10초)
       var checkCount = 0;
       var maxChecks = 50; // 10초 (200ms * 50)
